@@ -1,6 +1,10 @@
-// This program implements a Markov chain algorithm. Given some input text,
-// it generates pseudo-random phrases by repeatedly choosing a suffix word that
-// follows the current multi-word prefix.
+// This program implements a Markov chain algorithm. It generates pseudo-random
+// prose based on the given input text. It works by breaking each phrase into two
+// parts: a multi-word prefix, and a single suffix word. It generates output by randomly
+// choosing a suffix that follows the prefix.
+//
+// The program is based on Chapter 3 of "The Practice of Programming" by
+// Brian Kernighan and Rob Pike.
 package main
 
 import (
@@ -32,9 +36,9 @@ func (p *Prefix) push(word string) {
 }
 
 // StateMap associates each multi-word Prefix with a list of suffix words.
-// The starting state is an empty Prefix{} with the suffix list containing
-// the first word of the input text. The ending state is the last few words
-// of the input text with an empty suffix list.
+// The starting state is an empty Prefix{} with the suffix list containing the first word of
+// the input text. The ending state is the last few words of the input text with an empty
+// suffix list.
 type StateMap map[Prefix][]string
 
 func main() {

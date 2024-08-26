@@ -1,4 +1,5 @@
-// This program wraps its input into short lines.
+// This program wraps its input into short lines. It is based on fmt.awk from
+// "The Practice of Programming" by Brian Kernighan and Rob Pike (pp. 229).
 package main
 
 import (
