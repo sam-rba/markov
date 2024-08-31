@@ -35,10 +35,10 @@ func (p *Prefix) push(word string) {
 	}
 }
 
-// StateMap associates each multi-word Prefix with a list of suffix words.
-// The starting state is an empty Prefix{} with the suffix list containing the first word of
-// the input text. The ending state is the last few words of the input text with an empty
-// suffix list.
+// StateMap associates each multi-word Prefix with a list of suffix words.  The starting
+// state is an empty Prefix{} with the suffix list containing the first word of the
+// input text. The ending state has the last few words of the input as prefix, and
+// the suffix list contains an empty string.
 type StateMap map[Prefix][]string
 
 func main() {
@@ -59,7 +59,7 @@ func build(in io.Reader) StateMap {
 		prefix.push(suffix)
 	}
 
-	states[prefix] = []string{} // ending state
+	states[prefix] = append(states[prefix], "") // ending state
 
 	return states
 }
@@ -69,10 +69,10 @@ func generate(states StateMap, nWords int) {
 	prefix := Prefix{}
 	for i := 0; i < maxGen; i++ {
 		suffixes := states[prefix]
-		if len(suffixes) <= 0 { // ending state
+		suffix := suffixes[rand.Intn(len(suffixes))]
+		if suffix == "" { // ending state
 			return
 		}
-		suffix := suffixes[rand.Intn(len(suffixes))]
 		fmt.Println(suffix)
 		prefix.push(suffix)
 	}
