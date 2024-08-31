@@ -10,3 +10,9 @@ for f in empty a ab abc abcd; do
 	fi
 done
 rm out
+
+# Check that all words, pairs, and triples in output are in original.
+orig=tests/psalms
+./markov <$orig > out
+awk -f tests/match.awk $orig out
+rm out
