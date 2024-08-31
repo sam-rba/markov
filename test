@@ -1,0 +1,12 @@
+#!/usr/bin/sh
+
+# Check boundary conditions with small files. Output should match input.
+for f in empty a ab abc abcd; do
+	./markov <tests/$f > out
+	if !(diff tests/$f out > /dev/null); then
+		echo tests/$f: output of markov does not match input:
+		diff tests/$f out
+		exit 1
+	fi
+done
+rm out
