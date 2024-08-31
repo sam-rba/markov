@@ -16,3 +16,7 @@ orig=tests/psalms
 ./markov <$orig > out
 awk -f tests/match.awk $orig out
 rm out
+
+# Check that the output has a similar ratio of c's and d's to test randomness of
+# suffix selection.
+./markov <tests/stats | freq -c | awk -f tests/stats.awk
