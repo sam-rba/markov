@@ -1,10 +1,10 @@
 // This program implements a Markov chain algorithm. It generates pseudo-random
-// prose based on the given input text. It works by breaking each phrase into two
-// parts: a multi-word prefix, and a single suffix word. It generates output by randomly
+// prose based on the input text. It works by breaking each phrase into two parts:
+// a multi-word prefix, and a single word suffix. It generates output by randomly
 // choosing a suffix that follows the prefix.
-//
-// The program is based on Chapter 3 of "The Practice of Programming" by
-// Brian Kernighan and Rob Pike.
+// 
+// The program is based on Chapter 3 of "The Practice of Programming" by Brian Kernighan
+// and Rob Pike.
 package main
 
 import (
