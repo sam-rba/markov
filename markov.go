@@ -2,13 +2,14 @@
 // prose based on the input text. It works by breaking each phrase into two parts:
 // a multi-word prefix, and a single word suffix. It generates output by randomly
 // choosing a suffix that follows the prefix.
-// 
+//
 // The program is based on Chapter 3 of "The Practice of Programming" by Brian Kernighan
 // and Rob Pike.
 package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"io"
 	"math/rand"
@@ -16,8 +17,8 @@ import (
 )
 
 const (
-	nPref  = 2     // number of prefix words
-	maxGen = 10000 // maximum number of words to generate
+	nPref         = 2     // number of prefix words
+	maxGenDefault = 10000 // maximum number of words to generate
 )
 
 type Prefix struct {
@@ -42,8 +43,11 @@ func (p *Prefix) push(word string) {
 type StateMap map[Prefix][]string
 
 func main() {
+	maxGen := flag.Int("w", maxGenDefault, "maximum number of words to generate")
+	flag.Parse()
+
 	states := build(os.Stdin)
-	generate(states, maxGen)
+	generate(states, *maxGen)
 }
 
 // build populates a StateMap with words read from `in'.
@@ -64,10 +68,10 @@ func build(in io.Reader) StateMap {
 	return states
 }
 
-// generate produces at most `nWords' of output, one word per line.
-func generate(states StateMap, nWords int) {
+// generate produces at most `maxWords' of output, one word per line.
+func generate(states StateMap, maxWords int) {
 	prefix := Prefix{}
-	for i := 0; i < maxGen; i++ {
+	for i := 0; i < maxWords; i++ {
 		suffixes := states[prefix]
 		suffix := suffixes[rand.Intn(len(suffixes))]
 		if suffix == "" { // ending state
